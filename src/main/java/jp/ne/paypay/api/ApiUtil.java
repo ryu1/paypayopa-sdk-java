@@ -4,7 +4,6 @@ import com.squareup.okhttp.Call;
 import jp.ne.paypay.ApiClient;
 import jp.ne.paypay.ApiException;
 import jp.ne.paypay.Pair;
-import jp.ne.paypay.Validator;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -42,13 +41,6 @@ public class ApiUtil {
         apiClient.setReadTimeout(15);
         return apiClient.buildCall(localVarPath, method, localVarQueryParams, localVarCollectionQueryParams,
                 null, localVarHeaderParams, localVarFormParams, localVarAuthNames);
-    }
-
-    public static void validateObject(Validator validator, Object body) {
-        String message = validator.validate(body);
-        if (message != null) {
-            throw new IllegalArgumentException(message);
-        }
     }
 
     public static Call postCallObject(ApiClient apiClient, String url, Object body, String agreeSimilarTransaction) throws ApiException{

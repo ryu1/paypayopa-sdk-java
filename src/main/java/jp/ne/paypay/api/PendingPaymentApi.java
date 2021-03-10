@@ -7,7 +7,6 @@ import jp.ne.paypay.ApiException;
 import jp.ne.paypay.ApiResponse;
 import jp.ne.paypay.Configuration;
 import jp.ne.paypay.Pair;
-import jp.ne.paypay.Validator;
 import jp.ne.paypay.model.NotDataResponse;
 import jp.ne.paypay.model.Payment;
 import jp.ne.paypay.model.PaymentDetails;
@@ -15,15 +14,10 @@ import jp.ne.paypay.model.Refund;
 import jp.ne.paypay.model.RefundDetails;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class PendingPaymentApi {
     private ApiClient apiClient;
     private PaymentApi paymentApi;
-    private final Validator validator = Validator.getInstance();
 
     public PendingPaymentApi() {
         this(new Configuration().getDefaultApiClient());
@@ -52,7 +46,6 @@ public class PendingPaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public PaymentDetails createPendingPayment(Payment payment) throws ApiException {
-        ApiUtil.validateObject(validator, payment);
         ApiResponse<PaymentDetails> resp = createPendingPaymentWithHttpInfo(payment);
         return resp.getData();
     }
@@ -150,7 +143,6 @@ public class PendingPaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public RefundDetails refundPayment(Refund refund) throws ApiException {
-        ApiUtil.validateObject(validator, refund);
         return paymentApi.refundPayment(refund);
     }
 

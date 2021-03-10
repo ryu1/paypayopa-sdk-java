@@ -10,7 +10,6 @@ import jp.ne.paypay.Pair;
 import jp.ne.paypay.model.ProductType;
 import jp.ne.paypay.model.WalletBalance;
 
-import javax.validation.constraints.NotNull;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -119,7 +118,7 @@ public class WalletApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
         
      */
-    public WalletBalance checkWalletBalance( String userAuthorizationId, Integer amount, String currency, @NotNull ProductType productType) throws ApiException {
+    public WalletBalance checkWalletBalance( String userAuthorizationId, Integer amount, String currency, ProductType productType) throws ApiException {
         ApiResponse<WalletBalance> resp = checkWalletBalanceWithHttpInfo(userAuthorizationId, amount, currency, productType);
         return resp.getData();
     }

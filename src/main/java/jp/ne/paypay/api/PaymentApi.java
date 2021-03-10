@@ -7,7 +7,6 @@ import jp.ne.paypay.ApiException;
 import jp.ne.paypay.ApiResponse;
 import jp.ne.paypay.Configuration;
 import jp.ne.paypay.Pair;
-import jp.ne.paypay.Validator;
 import jp.ne.paypay.model.AccountLinkQRCode;
 import jp.ne.paypay.model.CaptureObject;
 import jp.ne.paypay.model.LinkQRCodeResponse;
@@ -24,8 +23,6 @@ import java.lang.reflect.Type;
 
 public class PaymentApi {
     private ApiClient apiClient;
-
-    private final Validator validator = Validator.getInstance();
 
     public PaymentApi() {
         this(new Configuration().getDefaultApiClient());
@@ -86,9 +83,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public PaymentDetails capturePaymentAuth(CaptureObject body) throws ApiException {
-        String message = validator.validate(body);
-        if (message != null)
-            throw new IllegalArgumentException(message);
         ApiResponse<PaymentDetails> resp = capturePaymentAuthWithHttpInfo(body);
         return resp.getData();
     }
@@ -126,10 +120,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public PaymentDetails createPayment(Payment body, String agreeSimilarTransaction) throws ApiException {
-        String message = validator.validate(body);
-        if (message != null) {
-            throw new IllegalArgumentException(message);
-        }
         ApiResponse<PaymentDetails> resp = createPaymentWithHttpInfo(body, agreeSimilarTransaction);
         return resp.getData();
     }
@@ -174,10 +164,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public QRCodeDetails createQRCode(QRCode body) throws ApiException {
-        String message = validator.validate(body);
-        if (message!=null) {
-            throw new IllegalArgumentException(message);
-        }
         ApiResponse<QRCodeDetails> resp = createQRCodeWithHttpInfo(body);
         return resp.getData();
     }
@@ -346,7 +332,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public RefundDetails refundPayment(Refund body) throws ApiException {
-        ApiUtil.validateObject(validator, body);
         ApiResponse<RefundDetails> resp = refundPaymentWithHttpInfo(body);
         return resp.getData();
     }
@@ -407,7 +392,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public LinkQRCodeResponse createAccountLinkQRCode(AccountLinkQRCode body) throws ApiException {
-        ApiUtil.validateObject(validator, body);
         ApiResponse<LinkQRCodeResponse> resp = createAccountLinkQRCodeWithHttpInfo(body);
         return resp.getData();
     }
@@ -442,7 +426,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public PaymentDetails createPaymentAuthorization(Payment body, String agreeSimilarTransaction) throws ApiException {
-        ApiUtil.validateObject(validator, body);
         ApiResponse<PaymentDetails> resp = createPaymentAuthorizationWithHttpInfo(body, agreeSimilarTransaction);
         return resp.getData();
     }
@@ -473,7 +456,6 @@ public class PaymentApi {
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
     public PaymentDetails createContinuousPayment(Payment body) throws ApiException {
-        ApiUtil.validateObject(validator, body);
         ApiResponse<PaymentDetails> resp = createContinuousPaymentWithHttpInfo(body);
         return resp.getData();
     }
