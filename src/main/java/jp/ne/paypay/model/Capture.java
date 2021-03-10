@@ -11,24 +11,18 @@ import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 /**
  * Capture
  */
 public class Capture {
 
   @SerializedName("merchantCaptureId")
-  @NotEmpty(message = "merchantCaptureId is required")
   private String merchantCaptureId = null;
   
   @SerializedName("amount")
-  @NotNull(message = "amount is required")
   private MoneyAmount amount = null;
   
   @SerializedName("orderDescription")
-  @NotEmpty(message =  "orderDescription is required")
   private String orderDescription = null;
   
   @SerializedName("requestedAt")

@@ -9,10 +9,6 @@ import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 /**
  * Payment
  */
@@ -20,37 +16,27 @@ import javax.validation.constraints.Size;
 public class Payment extends PaymentState {
 
   @SerializedName("merchantPaymentId")
-  @NotEmpty(message = "merchantPaymentId is required")
-  @Size(max = 64, message = "maximum 64 characters are allowed for merchantPaymentId")
   private String merchantPaymentId = null;
   
   @SerializedName("userAuthorizationId")
-  @NotEmpty(message = "userAuthorizationId is required")
-  @Size(max = 64, message = "maximum 64 characters are allowed for userAuthorizationId")
   private String userAuthorizationId = null;
   
   @SerializedName("amount")
-  @NotNull(message = "amount is  required")
   private MoneyAmount amount = null;
   
   @SerializedName("requestedAt")
-  @NotNull(message =  "requestedAt is required")
   private Long requestedAt = Instant.now().getEpochSecond();
   
   @SerializedName("storeId")
-  @Size(max =255 ,message = "maximum 255 characters allowed for storeId")
   private String storeId = null;
   
   @SerializedName("terminalId")
-  @Size(max =255 ,message = "maximum 255 characters allowed for terminalId")
   private String terminalId = null;
   
   @SerializedName("orderReceiptNumber")
-  @Size(max =255 ,message = "maximum 255 characters allowed for orderReceiptNumber")
   private String orderReceiptNumber = null;
   
   @SerializedName("orderDescription")
-  @Size(max =255 ,message = "maximum 255 characters allowed for orderDescription")
   private String orderDescription = null;
   
   @SerializedName("orderItems")

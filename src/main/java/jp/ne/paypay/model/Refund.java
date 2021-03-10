@@ -7,10 +7,6 @@ import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 /**
  * Refund
  */
@@ -18,25 +14,18 @@ import javax.validation.constraints.Size;
 public class Refund extends RefundState {
 
     @SerializedName("merchantRefundId")
-    @NotEmpty(message = "merchantRefundId is required")
-    @Size(max = 64, message = "maximum 64 characters are allowed for merchantRefundtId")
     private String merchantRefundId = null;
 
     @SerializedName("paymentId")
-    @NotEmpty(message = "paymentId is required")
-    @Size(max = 64, message = "mmaximum 64 characters are allowed for paymentId")
     private String paymentId = null;
 
     @SerializedName("amount")
-    @NotNull(message = "amount is required")
     private MoneyAmount amount = null;
 
     @SerializedName("requestedAt")
-    @NotNull(message = "requestedAt is required")
     private Long requestedAt = Instant.now().getEpochSecond();
 
     @SerializedName("reason")
-    @Size(max = 255, message = "maximum 255 characters allowed for reason")
     private String reason = null;
 
     @SerializedName("assumeMerchant")

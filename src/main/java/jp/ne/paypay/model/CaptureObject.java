@@ -7,10 +7,6 @@ import java.util.Objects;
 
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 /**
  * CaptureObject
  */
@@ -18,26 +14,18 @@ import javax.validation.constraints.Size;
 public class CaptureObject {
 
   @SerializedName("merchantPaymentId")
-  @NotEmpty(message = "merchantPaymentId is required")
-  @Size(max = 64, message = "maximum 64 characters are allowed for merchantPaymentId")
   private String merchantPaymentId = null;
   
   @SerializedName("amount")
-  @NotNull(message = "amount is required")
   private MoneyAmount amount = null;
   
   @SerializedName("merchantCaptureId")
-  @NotEmpty(message = "merchantCaptureId is required")
-  @Size(max = 64, message = "maximum 64 characters are allowed for merchantCaptureId")
   private String merchantCaptureId = null;
   
   @SerializedName("requestedAt")
-  @NotNull(message = "requestedAt is required")
   private Long requestedAt = Instant.now().getEpochSecond();
   
   @SerializedName("orderDescription")
-  @NotEmpty(message = "orderDescription is required")
-  @Size(max =255 ,message = "maximum 255 characters allowed for orderDescription")
   private String orderDescription = null;
   
   public CaptureObject merchantPaymentId(String merchantPaymentId) {

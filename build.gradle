@@ -12,7 +12,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 
 group = 'jp.ne.paypay'
-version = '1.0.1'
+version = '1.0.1.compatible-with-spring3'
 
 
 
@@ -81,11 +81,11 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
     compile 'org.apache.commons:commons-lang3:3.11'
     // validation
-    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
-    compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.7.Final'
-    compile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: '6.1.7.Final'
-    compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
-    compile group: 'org.glassfish', name: 'javax.el', version: '3.0.0'
+//    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+//    compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.7.Final'
+//    compile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: '6.1.7.Final'
+//    compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
+//    compile group: 'org.glassfish', name: 'javax.el', version: '3.0.0'
 
     testCompile 'org.mockito:mockito-core:3.7.7'
 
@@ -109,53 +109,28 @@ if(isReleaseBuild) {
     }
 }
 
-uploadArchives {
+publishing {
     repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ryu1/paypayopa-sdk-java")
+            credentials {
+                username = project.hasProperty("GITHUB_USER") ? GITHUB_USER : ''
+                password = project.hasProperty("GITHUB_TOKEN") ? GITHUB_TOKEN : ''
+            }
+        }
         if (isDevBuild) {
             mavenLocal()
         }else{
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: System.getenv("OSSRH_USERNAME"), password: System.getenv("OSSRH_TOKEN"))
-                }
-
-                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: System.getenv("OSSRH_USERNAME"), password: System.getenv("OSSRH_TOKEN"))
-                }
-
-                pom.project {
-                    name 'paypayopa'
-                    packaging 'jar'
-                    description 'PayPay OPA SDK'
-                    url 'https://github.com/paypay/paypayopa-sdk-java'
-
-                    scm {
-                        connection 'scm:git:git@github.com:paypay/paypayopa-sdk-java.git'
-                        developerConnection 'scm:git:git@github.com:paypay/paypayopa-sdk-java.git'
-                        url 'https://github.com/paypay/paypayopa-sdk-java'
-                    }
-
-                    licenses {
-                        license {
-                            name 'The Apache License, Version 2.0'
-                            url 'https://opensource.org/licenses/Apache-2.0'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id 'javidlulu'
-                            name 'Jaavid Ahmed'
-                            email 't-jaavidahmed.looloo@paypay-corp.co.jp'
-                        }
-                    }
+            publications {
+                gpr(MavenPublication) {
+                    from(components.java)
                 }
             }
         }
-
     }
 }
+
 test {
     useJUnitPlatform()
 }

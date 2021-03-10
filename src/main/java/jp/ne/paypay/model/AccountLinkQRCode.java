@@ -2,8 +2,6 @@ package jp.ne.paypay.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 import jp.ne.paypay.model.QRCode.RedirectTypeEnum;
@@ -15,36 +13,27 @@ import jp.ne.paypay.model.QRCode.RedirectTypeEnum;
 public class AccountLinkQRCode {
 
     @SerializedName("scopes")
-    @NotEmpty(message = "Scopes is required")
     private List<AuthorizationScope> scopes = null;
 
     @SerializedName("nonce")
-    @NotEmpty(message = "nonce is required")
-    @Size(max = 255, message = "maximum 255 characters allowed for nonce")
     private String nonce = null;
 
     @SerializedName("redirectType")
     private RedirectTypeEnum redirectType = RedirectTypeEnum.WEB_LINK;
 
     @SerializedName("redirectUrl")
-    @NotEmpty(message = "redirectUrl is required")
-    @Size(max = 255, message = "maximum 255 characters allowed for redirectUrl")
     private String redirectUrl = null;
 
     @SerializedName("referenceId")
-    @NotEmpty(message = "referenceId is required")
-    @Size(max = 255, message = "maximum 255 characters allowed for referenceId")
     private String referenceId = null;
 
     @SerializedName("phoneNumber")
     private String phoneNumber = null;
 
     @SerializedName("deviceId")
-    @Size(max = 255, message = "maximum 255 characters allowed for deviceId")
     private String deviceId = null;
 
     @SerializedName("userAgent")
-    @Size(max = 255, message = "maximum 255 characters allowed for userAgent")
     private String userAgent = null;
 
     /**
